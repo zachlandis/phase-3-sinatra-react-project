@@ -10,5 +10,10 @@ class Event < ActiveRecord::Base
         tickets_sold * self.price
     end
 
-
+    def all_attendees
+        self.attendees.map do |attendee|
+            "#{attendee.first_name} #{attendee.last_name} - #{attendee.email}"
+    
+        end
+    end
 end
