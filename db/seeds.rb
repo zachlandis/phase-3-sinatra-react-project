@@ -6,7 +6,8 @@ puts "🌱 Seeding data..."
         headliner: Faker::Lorem.word,
         event_venue: Faker::Lorem.word,
         capacity: rand(200..20000),
-        event_date: Faker::Date.in_date_period
+        event_date: Faker::Date.in_date_period,
+        price: rand(200..300)
     )
 
     10.times do
