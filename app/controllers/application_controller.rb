@@ -1,7 +1,7 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  # Add your routes here
+  # CRUD FOR EVENTS
   get "/events" do
     events = Event.all 
     events.to_json
@@ -44,4 +44,17 @@ class ApplicationController < Sinatra::Base
     event.destroy
     event.to_json
   end
+
+  # CRUD FOR ATTENDEES
+
+  get "/attendees" do
+    attendees = Attendee.all
+    attendees.to_json
+  end
+
+  get "/attendees/:id" do 
+    attendee = Attendee.find(params[:id])
+    attendee.to_json
+  end
+
 end
