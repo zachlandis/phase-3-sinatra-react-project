@@ -57,4 +57,13 @@ class ApplicationController < Sinatra::Base
     attendee.to_json
   end
 
+  post "/attendees" do
+    attendee = Attendee.create(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email]
+    )
+    attendee.to_json
+  end
+
 end
