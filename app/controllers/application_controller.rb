@@ -7,11 +7,15 @@ class ApplicationController < Sinatra::Base
     events.to_json
   end
 
-  # post "/events/:id" do
-  #   event = Event.create(
-  #     event_name: params[:event_name]
-  #   )
-
-
-
+  post "/events" do
+    event = Event.create(
+      event_name: params[:event_name],
+      headliner: params[:headliner],
+      event_venue: params[:event_venue],
+      capacity: params[:capacity],
+      event_date: params[:event_date],
+      event_updates: params[:event_updates]
+    )
+    event.to_json
+  end
 end
