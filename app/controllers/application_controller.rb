@@ -7,6 +7,11 @@ class ApplicationController < Sinatra::Base
     events.to_json
   end
 
+  get "/events/:id" do
+    event = Event.find(params[:id])
+    event.to_json
+  end
+
   post "/events" do
     event = Event.create(
       event_name: params[:event_name],
@@ -18,4 +23,8 @@ class ApplicationController < Sinatra::Base
     )
     event.to_json
   end
+
+  
+
+
 end
