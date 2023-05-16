@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import EventPage from './EventPage';
+import { Routes, Route } from "react-router-dom"
+import Home from "./Home";
 import NavBar from './NavBar';
+import EventPage from './EventPage';
+import CreateEvent from "./CreateEvent";
 
 
 function App() {
@@ -10,7 +13,11 @@ function App() {
   return (
     <div className="App">
       <NavBar onChangePage={setPage}/>
-      <EventPage />
+        <Routes>
+          <Route path="/events" element={<EventPage/>}></Route>
+          <Route exact path="/" element={<Home/>}></Route>  
+          <Route path="*" element={<h1>404 not found</h1>}></Route>
+        </Routes>
 
     </div>
   );
