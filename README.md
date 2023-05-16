@@ -1,3 +1,41 @@
+# Backend Models
+- Tickets belong to one event and one attendee
+  - Attributes
+    - event.id (Integer)
+    - attendee.id (Integer)
+    - ticket number (Integer)
+  - CRUD
+    - None
+
+- Events can have many attendees
+  - Attributes
+    - Id (Integer)
+    - Event Name
+    - Headliner
+    - Event Venue
+    - Capacity (Integer)
+    - Event Date (DateTime)
+    - Event Updates
+  - CRUD
+    - Get event info
+    - Post updates about event
+    - Patch event details
+    - Delete event
+
+- Attendee can have many tickets
+  - Attributes
+    - Id (Integer)
+    - First Name (String)
+    - Last Name (String)
+    - Email (String)
+  - CRUD
+    - Get attendee info
+    - Post (create) a new attendee (guest list)
+    
+
+
+
+
 # Requirements
 
 For this project, you must:
