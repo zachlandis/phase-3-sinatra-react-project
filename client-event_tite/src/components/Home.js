@@ -4,7 +4,10 @@ function Home() {
 
 
     return (
-        <h1>HOME PAGE!!</h1>
+        <div>
+            <h1>EVENT TITE</h1>
+            <h2>Event Planner Dashboard</h2>
+        </div>
     )
 }
 
