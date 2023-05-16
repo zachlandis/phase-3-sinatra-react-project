@@ -1,6 +1,5 @@
 class Event < ActiveRecord::Base
     has_many :tickets
-    has_many :attendees, through: :tickets
     
     def tickets_sold
         self.tickets.count

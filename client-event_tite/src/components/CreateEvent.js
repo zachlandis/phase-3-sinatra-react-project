@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
 
-function CreateEvent() {
+function CreateEvent({onAddEvent}) {
     const [eventName, setEventName] = useState("")
     const [headliner, setHeadliner] = useState("")
     const [eventVenue, setEventVenue] = useState("")
     const [capacity, setCapacity] = useState("")
     const [price, setPrice] = useState("")
     const [eventDate, setEventDate] = useState("")
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        fetch("http://localhost:9292/events", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                event_name: eventName,
+                headliner: headliner,
+                event_venue: eventVenue,
+                capacity: capacity,
+                price: price,
+                event_date: eventDate,
+            }),
+        })
+            .then(r => r.json())
+            .then(newEvent => onAddEvent(newEvent))
+    }
 
     return (
         <form className='new-event-form'>

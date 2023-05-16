@@ -24,7 +24,7 @@ function App() {
     <div className="App">
       <NavBar onChangePage={setPage}/>
         <Routes>
-          <Route path="/new-event" element={<CreateEvent/>}></Route>
+          <Route path="/new-event" element={<CreateEvent onAddEvent={addEvent} />}></Route>
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events}/>}></Route>
           {/* 0<Route path="/tickets" element={<Tickets events={events}/>}></Route> */}
