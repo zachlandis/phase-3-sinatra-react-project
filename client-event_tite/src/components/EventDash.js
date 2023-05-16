@@ -35,7 +35,7 @@ function EventDash({events}) {
             </div>
             
             <div>
-            <Link to={`/events/${eachEvent.id}`}>See More</Link>
+            <Link to={`/events/${eachEvent.id}`}>SEE MORE</Link>
                 <Button>+ Event Update</Button>
                 <Button>Delete Event</Button>
             </div>
@@ -44,7 +44,6 @@ function EventDash({events}) {
 
     return (
         <div>
-            <CreateEvent/>
             {calendar}
         </div>
     )

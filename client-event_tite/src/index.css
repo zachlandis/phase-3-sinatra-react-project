@@ -43,3 +43,16 @@ code {
 #event-updates {
   border: 3px solid darkgreen; 
 }
+
+.new-event-form {
+  align-items: center;
+  margin: auto;
+  width: 50%;
+}
+
+.new-event-form-child {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+}
