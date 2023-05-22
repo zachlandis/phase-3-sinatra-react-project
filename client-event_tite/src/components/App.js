@@ -6,7 +6,6 @@ import NavBar from './NavBar';
 import EventDash from './EventDash';
 import EventPage from "./EventPage";
 import CreateEvent from "./CreateEvent";
-import Tickets from "./Tickets";
 
 
 function App() {

@@ -1,7 +1,5 @@
 import React from "react";
-import CreateEvent from "./CreateEvent";
 import { Link } from "react-router-dom"
-import Button from '@mui/material/Button';
 
 function EventDash({events}) {
     
@@ -31,13 +29,10 @@ function EventDash({events}) {
             <div id="event-updates">
                 <p><strong>TICKETS SOLD:</strong> {eachEvent.tickets.length}</p>
                 <p><strong>REVENUES:</strong> {currencyFormat(eachEvent.tickets.length * eachEvent.price)}</p>
-                <p><strong>IMPORTANT UPDATES:</strong> {eachEvent.event_updates}</p>
             </div>
             
             <div>
             <Link to={`/events/${eachEvent.id}`}>SEE MORE</Link>
-                <Button>+ Event Update</Button>
-                <Button>Delete Event</Button>
             </div>
         </div>
     ))
