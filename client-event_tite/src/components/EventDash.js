@@ -9,9 +9,8 @@ function EventDash({events}) {
             currency: 'USD'
         }).format(value);
 
-
     const calendar = events.map((eachEvent) => (
-        <div className="event-page">
+        <div key={eachEvent.id} className="event-page">
             <div class="event-details">
                 <div>
                     <p><strong>DATE:</strong> {new Date(eachEvent.event_date).toLocaleDateString()}</p>
@@ -29,6 +28,7 @@ function EventDash({events}) {
             <div id="event-updates">
                 <p><strong>TICKETS SOLD:</strong> {eachEvent.tickets.length}</p>
                 <p><strong>REVENUES:</strong> {currencyFormat(eachEvent.tickets.length * eachEvent.price)}</p>
+                
             </div>
             
             <div>

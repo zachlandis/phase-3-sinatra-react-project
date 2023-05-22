@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CreateEvent() {
+function CreateEvent({onAddEvent}) {
     const [eventName, setEventName] = useState("")
     const [headliner, setHeadliner] = useState("")
     const [eventVenue, setEventVenue] = useState("")
@@ -24,6 +24,13 @@ function CreateEvent() {
                 event_date: eventDate,
             }),
         })
+        .then(r => r.json())
+        .then(data => onAddEvent(data))
+        setEventName("")
+        setEventVenue("")
+        setCapacity("")
+        setPrice("")
+        setEventDate("")
     }
 
     return (
