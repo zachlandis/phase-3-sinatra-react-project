@@ -2,8 +2,6 @@ import React from 'react';
 
 function Tickets({events}) {
 
-    console.log(events)
-
     return (
         <div>
             <table>
@@ -13,6 +11,8 @@ function Tickets({events}) {
                         <th>Ticket Holder</th>
                         <th>Event</th>
                         <th>Ticket Price</th>
+                        <th>Delete Ticket</th>
+                        <th>Update Ticket</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +24,8 @@ function Tickets({events}) {
                             <td>{ticket.ticket_holder}</td>
                             <td>{singleEvent.event_name}</td>
                             <td>{singleEvent.price}</td>
+                            <td><button>DELETE TICKET</button></td>
+                            <td><button>UPDATE TICKET</button></td>
                         </tr>
                         )
                     })
