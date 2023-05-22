@@ -56,3 +56,8 @@ code {
   text-align: center;
   margin: 0 auto;
 }
+
+.ticket-table {
+  align-items: center;
+  margin:auto;
+}

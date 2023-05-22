@@ -12,6 +12,7 @@ import Tickets from "./Tickets";
 function App() {
   const [page, setPage] = useState("/")
   const [events, setEvents] = useState([])
+  const [tickets, setTickets] = useState([])
 
   useEffect(() => {
       fetch("http://localhost:9292/events")
@@ -19,9 +20,21 @@ function App() {
       .then((data) => setEvents(data));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:9292/tickets")
+    .then((r) => r.json())
+    .then((data) => setTickets(data));
+}, []);
+
   function addEvent(addedEvent) {
     setEvents([...events, addedEvent])
   }
+
+  function deleteTicket(deletedTicket) {
+    const updatedTickets = tickets.filter((ticket) => ticket.id !== deletedTicket.id)
+    setTickets(updatedTickets)
+  }
+
 
   return (
     <div className="App">
@@ -30,7 +43,11 @@ function App() {
           <Route path="/new" element={<CreateEvent onAddEvent={addEvent}/>}></Route>
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events}/>}></Route>
-          {/* 0<Route path="/tickets" element={<Tickets events={events}/>}></Route> */}
+          <Route path="/tickets" element={<Tickets 
+          tickets={tickets}
+          onDeleteTicket={deleteTicket}
+          />}
+            ></Route>
           <Route path="/tickets" element={<Tickets events={events}/>}></Route>
           <Route exact path="/" element={<Home/>}></Route>  
           <Route path="*" element={<h1>404 not found</h1>}></Route>

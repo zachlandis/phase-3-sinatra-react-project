@@ -1,7 +1,17 @@
 import React from 'react';
 
-function Tickets({events}) {
+function Tickets({tickets, onDeleteTicket}) {
 
+    function handleDelete(id) {
+
+ 
+        fetch(`http://localhost:9292/tickets/${id}`, {
+            method: 'DELETE',
+        })
+            .then(r => r.json())
+            .then(data => onDeleteTicket(data))
+    }
+    
     return (
         <div>
             <table>
@@ -16,20 +26,18 @@ function Tickets({events}) {
                     </tr>
                 </thead>
                 <tbody>
-                {events.map((singleEvent) => (
-                singleEvent.tickets.map((ticket) => {
+                {tickets.map((ticket) => {
                     return (
                         <tr key={ticket.id}>
                             <td>{ticket.ticket_number}</td>
                             <td>{ticket.ticket_holder}</td>
-                            <td>{singleEvent.event_name}</td>
-                            <td>{singleEvent.price}</td>
-                            <td><button>DELETE TICKET</button></td>
+                            <td>{ticket.event.event_name}</td>
+                            <td>{ticket.event.price}</td>
+                            <td><button onClick={() => handleDelete(ticket.id)}>DELETE TICKET</button></td>
                             <td><button>UPDATE TICKET</button></td>
                         </tr>
-                        )
-                    })
-                ))}
+                        )}
+                )}
                 </tbody>
             </table>
         </div>
