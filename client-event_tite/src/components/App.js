@@ -13,18 +13,19 @@ function App() {
   const [page, setPage] = useState("/")
   const [events, setEvents] = useState([])
 
-    useEffect(() => {
-        fetch("http://localhost:9292/events")
-        .then((r) => r.json())
-        .then((data) => setEvents(data));
-    }, []);
+  useEffect(() => {
+      fetch("http://localhost:9292/events")
+      .then((r) => r.json())
+      .then((data) => setEvents(data));
+  }, []);
 
+  
 
   return (
     <div className="App">
       <NavBar onChangePage={setPage}/>
         <Routes>
-          <Route path="/new-event" element={<CreateEvent onAddEvent={addEvent} />}></Route>
+          <Route path="/new-event" element={<CreateEvent/>}></Route>
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events}/>}></Route>
           {/* 0<Route path="/tickets" element={<Tickets events={events}/>}></Route> */}

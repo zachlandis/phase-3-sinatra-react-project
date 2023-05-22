@@ -5,7 +5,6 @@ class CreateTickets < ActiveRecord::Migration[6.1]
       t.integer :ticket_price
       t.string :ticket_holder
       t.integer :event_id
-      t.integer :attendee_id
       t.timestamps
     end
   end

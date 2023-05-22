@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 2023_05_15_184523) do
     t.integer "ticket_price"
     t.string "ticket_holder"
     t.integer "event_id"
-    t.integer "attendee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

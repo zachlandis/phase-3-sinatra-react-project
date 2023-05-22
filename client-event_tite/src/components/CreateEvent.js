@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CreateEvent({onAddEvent}) {
+function CreateEvent() {
     const [eventName, setEventName] = useState("")
     const [headliner, setHeadliner] = useState("")
     const [eventVenue, setEventVenue] = useState("")
@@ -24,12 +24,10 @@ function CreateEvent({onAddEvent}) {
                 event_date: eventDate,
             }),
         })
-            .then(r => r.json())
-            .then(newEvent => onAddEvent(newEvent))
     }
 
     return (
-        <form className='new-event-form'>
+        <form className='new-event-form' onSubmit={handleSubmit}>
             <h4 className='new-event-form-child'>Event Name</h4>
             <input
                 className='new-event-form-child'
@@ -83,6 +81,7 @@ function CreateEvent({onAddEvent}) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
             />
+            <input className='new-event-form-child' type="submit"/>
         </form>
     )
 }

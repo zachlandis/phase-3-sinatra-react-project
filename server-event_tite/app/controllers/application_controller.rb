@@ -7,11 +7,6 @@ class ApplicationController < Sinatra::Base
     events.to_json(include: :tickets)
   end
 
-  # get "/events/:id" do
-  #   event = Event.find(params[:id])
-  #   event.to_json
-  # end
-
   post "/events" do
     event = Event.create(
       event_name: params[:event_name],
@@ -24,38 +19,12 @@ class ApplicationController < Sinatra::Base
     event.to_json
   end
 
-
-  patch "/events/:id" do
-    event = Event.find(params[:id])
-    event.update(
-      event_name: params[:event_name],
-      headliner: params[:headliner],
-      event_venue: params[:event_venue],
-      capacity: params[:capacity],
-      event_date: params[:event_date],
-      event_updates: params[:event_updates]
-    )
-    event.to_json
-  end
-
-
-  delete "/events/:id" do 
-    event = Event.find(params[:id])
-    event.destroy
-    event.to_json
-  end
-
   # CRUD FOR ATTENDEES
-
+  
   get "/attendees" do
     attendees = Attendee.all
     attendees.to_json
   end
-
-  # get "/attendees/:id" do 
-  #   attendee = Attendee.find(params[:id])
-  #   attendee.to_json
-  # end
 
   post "/attendees" do
     attendee = Attendee.create(
@@ -66,4 +35,18 @@ class ApplicationController < Sinatra::Base
     attendee.to_json
   end
 
+  patch "/events/:id" do
+    attendee = Attendee.find(params[:id])
+    attendee.update(
+      ticket_price: params[:ticket_price],
+      ticket_holder: params[:ticket_holder],
+    )
+    attendee.to_json
+  end
+
+  delete "events/:id" do
+    attendee = Attendee.find(params[:id])
+    attendee.destroy
+    attendee.to_json
+  end
 end
