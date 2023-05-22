@@ -8,6 +8,7 @@ function NavBar() {
         <nav className="NavBar">
             <Link to="/">Home</Link>
             <Link to="/events">Events</Link>
+            <Link to="/tickets">Tickets</Link>
             <Link to="/new">New Event</Link>
         </nav>
     )

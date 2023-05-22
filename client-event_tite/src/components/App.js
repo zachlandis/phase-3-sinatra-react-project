@@ -6,6 +6,7 @@ import NavBar from './NavBar';
 import EventDash from './EventDash';
 import EventPage from "./EventPage";
 import CreateEvent from "./CreateEvent";
+import Tickets from "./Tickets";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events}/>}></Route>
           {/* 0<Route path="/tickets" element={<Tickets events={events}/>}></Route> */}
+          <Route path="/tickets" element={<Tickets events={events}/>}></Route>
           <Route exact path="/" element={<Home/>}></Route>  
           <Route path="*" element={<h1>404 not found</h1>}></Route>
         </Routes>
