@@ -35,6 +35,17 @@ function App() {
     setTickets(updatedTickets)
   }
 
+  function updateTicket(updatedTicket) {
+    const updatedTickets = tickets.map((ticket) => {
+      if (ticket.id === updatedTicket.id) {
+        return updatedTicket;
+      } else {
+        return ticket;
+      }
+    });
+    setTickets(updatedTickets);
+  }
+
 
   return (
     <div className="App">
@@ -46,6 +57,7 @@ function App() {
           <Route path="/tickets" element={<Tickets 
           tickets={tickets}
           onDeleteTicket={deleteTicket}
+          onUpdateTicket={updateTicket}
           />}
             ></Route>
           <Route path="/tickets" element={<Tickets events={events}/>}></Route>
