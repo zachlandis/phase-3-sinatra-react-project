@@ -3,12 +3,7 @@ class ApplicationController < Sinatra::Base
   
   # CRUD FOR EVENTS
   get "/events" do
-    events = Event.all 
-    events.to_json(include: :tickets)
-  end
-
-  get "/events/:id" do 
-    events = Event.find(params[:id])
+    events = Event.all
     events.to_json(include: :tickets)
   end
 
@@ -21,7 +16,7 @@ class ApplicationController < Sinatra::Base
       event_date: params[:event_date],
       event_updates: params[:event_updates]
     )
-    event.to_json
+    event.to_json(include: :tickets)
   end
 
   # CRUD FOR TICKETS
@@ -30,11 +25,14 @@ class ApplicationController < Sinatra::Base
     tickets.to_json(include: :event)
   end
 
+  # REMOVE. It's coming through from Events
+
+
   post "/tickets" do
     ticket = Ticket.create(
       ticket_number: params[:ticket_number],
       ticket_holder: params[:ticket_holder],
-      ticket_price: params[:ticket_price]
+      ticket_price: params[:ticket_price],
     )
     ticket.to_json
   end
@@ -52,6 +50,5 @@ class ApplicationController < Sinatra::Base
   delete "/tickets/:id" do
     ticket = Ticket.find(params[:id])
     ticket.destroy
-    ticket.to_json
   end
 end

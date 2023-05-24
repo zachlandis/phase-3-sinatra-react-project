@@ -32,7 +32,7 @@ function EventDash({events}) {
             </div>
             
             <div>
-            <Link to={`/events/${eachEvent.id}`}>SEE MORE</Link>
+            <Link to={`/events/${eachEvent.id}`} events={events} >SEE MORE</Link>
             </div>
         </div>
     ))

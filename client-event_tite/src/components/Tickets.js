@@ -6,7 +6,7 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
     const [updatedTicket, setUpdatedTicket] = useState({
         ticket_number: '',
         ticket_holder: '',
-        price: ''
+        ticket_price: ''
     })
 
     function handleDelete(id) {
@@ -18,13 +18,8 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
     }
 
     function handleUpdate(id) {
-        setUpdatedTicket(id);
+        setUpdatedTicketId(id);
         setIsFormVisible(true);
-        setUpdatedTicket({
-            ticket_number: '',
-            ticket_holder: '',
-            price: ''
-        })
     }
 
     function handleInputChange(e) {
@@ -41,7 +36,7 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
         const updatedEvent = {
             ticket_number: updatedTicket.ticket_number,
             ticket_holder: updatedTicket.ticket_holder,
-            price: updatedTicket.price
+            ticket_price: updatedTicket.ticket_price
         }
 
         fetch(`http://localhost:9292/tickets/${updatedTicketId}`, {
@@ -52,9 +47,14 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
             body: JSON.stringify(updatedEvent)
         })
             .then(r => r.json())
-            .then(data => onUpdateTicket(data))
+            .then(data => onUpdateTicket(data));
 
-
+            setIsFormVisible(false);
+            setUpdatedTicket({
+                ticket_number: '',
+                ticket_holder: '',
+                ticket_price: ''
+            })
     }
     
     return (
@@ -86,8 +86,8 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
                 Ticket Price:
                     <input
                         type="price"
-                        name="price"
-                        value={updatedTicket.price}
+                        name="ticket_price"
+                        value={updatedTicket.ticket_price}
                         onChange={handleInputChange}
                 />
                 </label>
@@ -96,7 +96,7 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
             </form>
                 )}
             </div>
-            <table>
+            {/* <table>
                 <thead>
                     <tr>
                         <th>Ticket Number</th>
@@ -121,7 +121,7 @@ function Tickets({tickets, onDeleteTicket, onUpdateTicket}) {
                         )}
                 )}
                 </tbody>
-            </table>
+            </table> */}
         </div>
     )
 }

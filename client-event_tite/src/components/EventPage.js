@@ -1,32 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function EventPage() {
-    const [eventPage, setEventPage] = useState({ tickets: [] })
+function EventPage({events, onDeleteTicket}) {
+    const [eventPage, setEventPage] = useState([])
     const { id } = useParams()
 
     const {event_name, event_venue, headliner, capacity, event_date, price} = eventPage
 
-    useEffect(() => {
-        fetch(`http://localhost:9292/events/${id}`)
-            .then(r => r.json())
-            .then(data => 
-                setEventPage({...data, tickets: data.tickets}))
-    }, [id])
+    const idNum = parseInt(id)
+    const foundEvent = events.find(e => e.id === idNum)
 
-    // console.log(tickets)
-
-    const getTickets = eventPage.tickets.map((ticket) => (
-        <div>
-            <li key={ticket.id}>{ticket.ticket_number} - {ticket.ticket_holder}</li>
-        </div>
-    ))
+    if (!eventPage.id && foundEvent) {
+        setEventPage(foundEvent);
+        console.log("During State Set:", foundEvent)
+      }
 
     const currencyFormat = (value) =>
     new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
     }).format(value);
+
+    function handleDelete(id) {
+        fetch(`http://localhost:9292/tickets/${id}`, {
+            method: 'DELETE',
+        })
+            .then(r => r.json())
+            .then(data => onDeleteTicket(data))
+    }
+
+    function handleUpdate(id) {
+        console.log(id)
+    }
 
     if(!eventPage.event_name) return <h2>Loading...</h2>    
 
@@ -39,9 +44,16 @@ function EventPage() {
             <h5>EVENT DATE: {new Date(event_date).toLocaleDateString()}</h5>
             <h6>TICKET PRICE: {currencyFormat(price)}</h6>
             <h6>TICKETS SOLD:</h6>
-            <ol>
-                {getTickets}
-            </ol>
+            {eventPage.tickets.map((ticket) => (
+                <div>
+                    <li key={ticket.id}>{ticket.ticket_number} - {ticket.ticket_holder} - 
+                    <button onClick={() => handleDelete(ticket.id)}>DELETE TICKET</button> - 
+                    <button onClick={() => handleUpdate(ticket.id)}>UPDATE TICKET</button></li>
+                </div>
+            ))
+           }
+                
+            
         </div>
     )
 }
