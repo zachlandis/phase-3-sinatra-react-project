@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
 function EventDash({events}) {
@@ -13,16 +13,16 @@ function EventDash({events}) {
         <div key={eachEvent.id} className="event-page">
             <div class="event-details">
                 <div>
-                    <p><strong>DATE:</strong> {new Date(eachEvent.event_date).toLocaleDateString()}</p>
+                    <p><strong>DATE:</strong> <br/> {new Date(eachEvent.event_date).toDateString()}</p>
                 </div>
                 <div>
-                    <p><strong>EVENT:</strong> {eachEvent.event_name}</p>
+                    <p><strong>EVENT:</strong> <br/> {eachEvent.event_name}</p>
                 </div>
                 <div>
-                    <p><strong>VENUE:</strong> {eachEvent.event_venue}</p>
+                    <p><strong>VENUE:</strong> <br/> {eachEvent.event_venue}</p>
                 </div>
                 <div>
-                    <p><strong>HEADLINER:</strong> {eachEvent.headliner}</p>
+                    <p><strong>HEADLINER:</strong> <br/> {eachEvent.headliner}</p>
                 </div>
             </div>
             <div id="event-updates">

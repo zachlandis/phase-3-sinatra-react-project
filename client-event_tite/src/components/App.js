@@ -1,12 +1,10 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom"
-import Home from "./Home";
 import NavBar from './NavBar';
 import EventDash from './EventDash';
 import EventPage from "./EventPage";
 import CreateEvent from "./CreateEvent";
-import Tickets from "./Tickets";
 
 
 function App() {
@@ -25,37 +23,34 @@ function App() {
   
 
   function deleteTicket(deletedTicket) {
-    const updatedEvents = events.map((event) => {
-      if (event.id === deletedTicket.eventId) {
-          const updatedTickets = event.tickets.filter(ticket => ticket.id !== deletedTicket.id);
-          return {
-            ...event,
-            tickets: updatedTickets
-          };
-        }
-        return event;
-      });
-  
-      setEvents(updatedEvents);
+    console.log("Deleted", deletedTicket)
+    // const filteredEvents = events.map((event) => {
+    //   if (event.id === deletedTicket.event_id) {
+    //       const updatedTickets = event.tickets.filter(ticket => ticket.id !== deletedTicket.ticket_id);
+    //       console.log(updatedTickets)
+    //     //   return {
+    //     //     ...event,
+    //     //     tickets: updatedTickets
+    //     //   };
+    //     }
+    //     // return event;
+    //   });
+    //   console.log("Before Render:", events)
+    //   setEvents(filteredEvents);
+    //   console.log("After Render:", events)
     };
   
-  
-
-  // delete from tickets and delete from events.tickets
-
-  
   function updateTicket(updatedTicket) {
-    console.log(updatedTicket)
-  }
-  //   const updatedTickets = tickets.map((ticket) => {
-  //     if (ticket.id === updatedTicket.id) {
+  //   const updatedEvents = events.map((event) => {
+  //     if (event.id === updatedTicket.event_id) {
+  //       const updatedTickets = 
   //       return updatedTicket;
   //     } else {
-  //       return ticket;
+  //       return event;
   //     }
   //   });
-  //   setTickets(updatedTickets);
-  // }
+  //   setEvents(updatedTickets);
+  }
 
 
   return (

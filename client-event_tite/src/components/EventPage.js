@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CreateTicket from './CreateTicket';
 
 function EventPage({events, onDeleteTicket, onUpdateTicket}) {
     const [eventPage, setEventPage] = useState([])
-    const [isFormVisible, setIsFormVisible] = useState(false)
+    const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
+    const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
     const [updatedTicket, setUpdatedTicket] = useState({
     ticket_number: '',
     ticket_holder: '',
@@ -52,7 +54,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
     
     
     function handleVisibleForm(event_id, ticket_id) {
-        setIsFormVisible(true)
+        setIsUpdateFormVisible(!isUpdateFormVisible)
         setUpdatedTicket({
             event_id: event_id,
             ticket_id: ticket_id,
@@ -61,16 +63,11 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
 
     function handleUpdateFormSubmit(e) {
         e.preventDefault();
-        
-        // const event_id = updatedTicket.event_id;
-        // const ticket_id = updatedTicket.id;
        
         const correctedTicket = {
             ticket_number: updatedTicket.ticket_number,
             ticket_holder: updatedTicket.ticket_holder,
             ticket_price: updatedTicket.ticket_price,
-            // event_id: updatedTicket.event_id,
-            // ticket_id: updatedTicket.ticket_id
         }
 
         fetch(`http://localhost:9292/events/${updatedTicket.event_id}/tickets/${updatedTicket.ticket_id}`, {
@@ -87,7 +84,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
             .then(r => r.json())
             .then(data => onUpdateTicket(data));
 
-            setIsFormVisible(false);
+            setIsUpdateFormVisible(false);
             setUpdatedTicket(correctedTicket)
     }
 
@@ -102,8 +99,11 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
             <h4>CAPACITY: {capacity}</h4>
             <h5>EVENT DATE: {new Date(event_date).toLocaleDateString()}</h5>
             <h6>TICKET PRICE: {currencyFormat(price)}</h6>
-            <h6>TICKETS SOLD:</h6>
-            {isFormVisible && (
+                <button onClick={() => setIsCreateFormVisible(!isCreateFormVisible)}>CREATE TICKET:</button>
+                {console.log(isCreateFormVisible)}
+                {isCreateFormVisible ? <CreateTicket/> : null}
+            <h6>TICKETS SOLD:</h6> 
+            {isUpdateFormVisible && (
                 <form onSubmit={handleUpdateFormSubmit}>
                 <label>
                 Ticket Number:
