@@ -19,36 +19,40 @@ class ApplicationController < Sinatra::Base
     event.to_json(include: :tickets)
   end
 
+  get "/events/:id" do
+    event = Event.find(params[:id])
+    event.to_json(include: :tickets)
+  end
+  
+
   # CRUD FOR TICKETS
+  
   get "/tickets" do
     tickets = Ticket.all
-    tickets.to_json(include: :event)
+    tickets.to_json
   end
-
-  # REMOVE. It's coming through from Events
-
-
-  post "/tickets" do
-    ticket = Ticket.create(
-      ticket_number: params[:ticket_number],
-      ticket_holder: params[:ticket_holder],
-      ticket_price: params[:ticket_price],
-    )
-    ticket.to_json
-  end
-
-  patch "/tickets/:id" do
-    ticket = Ticket.find(params[:id])
-    ticket.update(
-      ticket_number: params[:ticket_number],
-      ticket_holder: params[:ticket_holder],
-      ticket_price: params[:ticket_price]
-    )
-    ticket.to_json
-  end
-
-  delete "/tickets/:id" do
-    ticket = Ticket.find(params[:id])
+  
+  delete "/events/:event_id/tickets/:ticket_id" do
+    event = Event.find(params[:event_id])
+    ticket = event.tickets.find(params[:ticket_id])
     ticket.destroy
   end
+
+  patch "/events/:event_id/tickets/:ticket_id" do
+    event = Event.find(params[:event_id])
+    ticket = event.tickets.find(params[:ticket_id])
+    ticket.update(
+      ticket_holder: params[:ticket_holder],
+      ticket_number: params[:ticket_number],
+      ticket_price: params[:ticket_price],
+      event_id: params[:event_id],      
+    )
+    ticket.to_json
+  end
+
+
+
+
+
 end
+

@@ -24,15 +24,29 @@ function App() {
   }
   
 
-  // function deleteTicket(deletedTicket) {
-  //   const updatedTickets = tickets.filter((ticket) => ticket.id !== deletedTicket.id)
-  //   setTickets(updatedTickets)
-  // }
+  function deleteTicket(deletedTicket) {
+    const updatedEvents = events.map((event) => {
+      if (event.id === deletedTicket.eventId) {
+          const updatedTickets = event.tickets.filter(ticket => ticket.id !== deletedTicket.id);
+          return {
+            ...event,
+            tickets: updatedTickets
+          };
+        }
+        return event;
+      });
+  
+      setEvents(updatedEvents);
+    };
+  
+  
 
   // delete from tickets and delete from events.tickets
 
-  // SHOULD BE COMING FROM EVENTS, NOT TICKETS!!// 
-  // function updateTicket(updatedTicket) {
+  
+  function updateTicket(updatedTicket) {
+    console.log(updatedTicket)
+  }
   //   const updatedTickets = tickets.map((ticket) => {
   //     if (ticket.id === updatedTicket.id) {
   //       return updatedTicket;
@@ -50,7 +64,7 @@ function App() {
         <Routes>
           <Route path="/new" element={<CreateEvent onAddEvent={addEvent}/>}></Route>
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
-          <Route path="/events/:id" element={<EventPage events={events}/>}></Route>
+          <Route path="/events/:id" element={<EventPage events={events} onDeleteTicket={deleteTicket} onUpdateTicket={updateTicket}/>}></Route>
           {/* <Route exact path="/" element={<Home/>}></Route>   */}
           <Route path="*" element={<h1>404 not found</h1>}></Route>
         </Routes>
