@@ -24,20 +24,21 @@ function App() {
 
   function deleteTicket(deletedTicket) {
     console.log("Deleted", deletedTicket)
-    // const filteredEvents = events.map((event) => {
-    //   if (event.id === deletedTicket.event_id) {
-    //       const updatedTickets = event.tickets.filter(ticket => ticket.id !== deletedTicket.ticket_id);
-    //       console.log(updatedTickets)
-    //     //   return {
-    //     //     ...event,
-    //     //     tickets: updatedTickets
-    //     //   };
-    //     }
-    //     // return event;
-    //   });
-    //   console.log("Before Render:", events)
-    //   setEvents(filteredEvents);
-    //   console.log("After Render:", events)
+
+    const updatedEvent = events.find((e) => e.id === deletedTicket.event_id)
+    const updatedTickets = updatedEvent.tickets.filter(
+      ticket => ticket.id !== deletedTicket.ticket_id);
+
+    const updatedEvents = events.map((event) => {
+      if (event.id === deletedTicket.event_id) {
+        return {
+             ...updatedEvent,
+             tickets: updatedTickets
+           };
+        }
+        return event;
+      });
+      setEvents([...updatedEvents]);
     };
   
   function updateTicket(updatedTicket) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CreateTicket from './CreateTicket';
 
@@ -7,23 +7,25 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
     const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
     const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
     const [updatedTicket, setUpdatedTicket] = useState({
-    ticket_number: '',
-    ticket_holder: '',
-    ticket_price: '',
-    event_id: '',
-    ticket_id: '',
+        ticket_number: '',
+        ticket_holder: '',
+        ticket_price: '',
+        event_id: '',
+        ticket_id: '',
     })
+    
     const { id } = useParams()
 
     const {event_name, event_venue, headliner, capacity, event_date, price} = eventPage
 
-    const idNum = parseInt(id)
-    const foundEvent = events.find(e => e.id === idNum)
-
-    if (!eventPage.id && foundEvent) {
-        setEventPage(foundEvent);
-        console.log("During State Set:", foundEvent)
-      }
+    useEffect(() => {
+        const idNum = parseInt(id)
+        const foundEvent = events.find(e => e.id === idNum)
+        if (!eventPage.id && foundEvent) {
+            setEventPage(foundEvent);
+          }
+    }, [events])
+    
 
     const currencyFormat = (value) =>
     new Intl.NumberFormat('en-US', {
@@ -42,12 +44,12 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
 
     //// DESTROY FETCH ///////
 
-    function handleDelete(event_id, ticket_id) {
-        fetch(`http://localhost:9292/events/${event_id}/tickets/${ticket_id}`, {
+    function handleDelete(ticket) {
+        fetch(`http://localhost:9292/events/${ticket.event_id}/tickets/${ticket.id}`, {
             method: 'DELETE',
         })
-            .then(r => r.json())
-            .then(data => onDeleteTicket(data))
+            // .then(r => r.json())
+            .then(onDeleteTicket(ticket))
     }
 
     //// PATCH FORM ///////
@@ -100,7 +102,6 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
             <h5>EVENT DATE: {new Date(event_date).toLocaleDateString()}</h5>
             <h6>TICKET PRICE: {currencyFormat(price)}</h6>
                 <button onClick={() => setIsCreateFormVisible(!isCreateFormVisible)}>CREATE TICKET:</button>
-                {console.log(isCreateFormVisible)}
                 {isCreateFormVisible ? <CreateTicket/> : null}
             <h6>TICKETS SOLD:</h6> 
             {isUpdateFormVisible && (
@@ -158,9 +159,9 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
                 )}
                 <br/>
             {eventPage.tickets.map((ticket) => (
-                <div>
-                    <li key={ticket.id}>{ticket.ticket_number} - {ticket.ticket_holder} - 
-                    <button onClick={() => handleDelete(ticket.event_id, ticket.id)}>DELETE TICKET</button> - 
+                <div key={ticket.id}>
+                    <li>{ticket.ticket_number} - {ticket.ticket_holder} - 
+                    <button onClick={() => handleDelete(ticket)}>DELETE TICKET</button> - 
                     <button onClick={() => handleVisibleForm(ticket.event_id, ticket.id)}>UPDATE TICKET</button></li>
                 </div>
             ))

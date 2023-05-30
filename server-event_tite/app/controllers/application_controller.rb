@@ -32,21 +32,21 @@ class ApplicationController < Sinatra::Base
     tickets.to_json
   end
 
-  # post "/events/:event_id/tickets" do
-  #   ticket = Ticket.create(
-  #     ticket_holder: params[:ticket_holder],
-  #     ticket_number: params[:ticket_number],
-  #     ticket_price: params[:ticket_price],
-  #     event_id: params[:event_id]
-  #   )
-  #   ticket.to_json
-  # end
+  post "/events/:event_id/tickets" do
+    ticket = Ticket.create(
+      ticket_holder: params[:ticket_holder],
+      ticket_number: params[:ticket_number],
+      ticket_price: params[:ticket_price],
+      event_id: params[:event_id]
+    )
+    ticket.to_json
+  end
 
   delete "/events/:event_id/tickets/:ticket_id" do
     event = Event.find(params[:event_id])
     ticket = event.tickets.find(params[:ticket_id])
     ticket.destroy
-    ticket.to_json
+    # ticket.to_json
   end
 
   patch "/events/:event_id/tickets/:ticket_id" do
