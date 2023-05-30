@@ -95,12 +95,41 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     return (
         <div>
             <div>
-            <h1>EVENT NAME: {event_name}</h1>
-            <h2>EVENT VENUE: {event_venue}</h2>
-            <h3>HEADLINER: {headliner}</h3>
-            <h4>CAPACITY: {capacity}</h4>
-            <h5>EVENT DATE: {new Date(event_date).toLocaleDateString()}</h5>
-            <h6>TICKET PRICE: {currencyFormat(price)}</h6>
+               <table>
+                    <thead>
+                        <tr>
+                            <th>EVENT NAME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>{event_name}</tr>
+                    </tbody>
+
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event Venue</th>
+                            <th>Event Date</th>
+                            <th>Headliner</th>
+                            <th>Capacity</th>
+                            <th>Ticket Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{event_venue}</td>
+                            <td>{new Date(event_date).toLocaleDateString()}</td>
+                            <td>{headliner}</td>
+                            <td>{capacity}</td>
+                            <td>{price}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+
                 <button onClick={() => setIsCreateFormVisible(!isCreateFormVisible)}>CREATE TICKET:</button>
                 {isCreateFormVisible ? <CreateTicket onAddTicket={onAddTicket} /> : null}
             <h6>TICKETS SOLD:</h6> 
