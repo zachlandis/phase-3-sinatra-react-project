@@ -137,7 +137,15 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
                 {isCreateFormVisible ? <CreateTicket onAddTicket={onAddTicket} /> : null}
             <h6>TICKETS SOLD:</h6> 
             {isUpdateFormVisible && (
-                <form onSubmit={handleUpdateFormSubmit}>
+                <form 
+                    onSubmit={handleUpdateFormSubmit}
+                    className="form-container"    
+                >
+                <button 
+                    className='x-button'
+                    onClick={() => setIsUpdateFormVisible(!isUpdateFormVisible)}>X
+                </button>
+                <br/>
                 <label>
                 Ticket Number:
                     <input
@@ -175,6 +183,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
                         name="event_id"
                         value={updatedTicket.event_id}
                 />
+                * no edits
                 </label>
                 <br/>
                 <label>
@@ -184,6 +193,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
                         name="ticket_id"
                         value={updatedTicket.ticket_id}
                 />
+                * no edits
                 </label>
                 <br/>
                 <button type="submit">Update Ticket</button>

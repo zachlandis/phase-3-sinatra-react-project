@@ -61,3 +61,14 @@ code {
   align-items: center;
   margin:auto;
 }
+
+.form-container {
+  position: relative;
+  border: 1px solid grey;
+}
+
+.x-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
