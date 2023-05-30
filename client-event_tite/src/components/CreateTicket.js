@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-function CreateTicket() {
+function CreateTicket({onAddTicket}) {
     const [ticketHolder, setTicketHolder] = useState("")
     const [ticketNumber, setTicketNumber] = useState("")
     const [ticketPrice, setTicketPrice] = useState("")
@@ -26,7 +26,10 @@ function CreateTicket() {
             body: JSON.stringify(newTicket)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => onAddTicket(data))
+        setTicketHolder("")
+        setTicketNumber("")
+        setTicketPrice("")
     }
 
     return (

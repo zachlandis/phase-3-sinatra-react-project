@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CreateTicket from './CreateTicket';
 
-function EventPage({events, onDeleteTicket, onUpdateTicket}) {
+function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     const [eventPage, setEventPage] = useState([])
     const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false)
     const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
@@ -13,7 +13,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
         event_id: '',
         ticket_id: '',
     })
-    
+
     const { id } = useParams()
 
     const {event_name, event_venue, headliner, capacity, event_date, price} = eventPage
@@ -102,7 +102,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket}) {
             <h5>EVENT DATE: {new Date(event_date).toLocaleDateString()}</h5>
             <h6>TICKET PRICE: {currencyFormat(price)}</h6>
                 <button onClick={() => setIsCreateFormVisible(!isCreateFormVisible)}>CREATE TICKET:</button>
-                {isCreateFormVisible ? <CreateTicket/> : null}
+                {isCreateFormVisible ? <CreateTicket onAddTicket={onAddTicket} /> : null}
             <h6>TICKETS SOLD:</h6> 
             {isUpdateFormVisible && (
                 <form onSubmit={handleUpdateFormSubmit}>
