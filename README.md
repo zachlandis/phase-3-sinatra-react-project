@@ -1,36 +1,17 @@
-# Backend Models
-- Tickets belong to one event and one attendee
-  - Attributes
-    - event.id (Integer)
-    - attendee.id (Integer)
-    - ticket number (Integer)
-  - CRUD
-    - None
+# Welcome to Event Tite!
+This app was designed for event planners and producers to help manage all of your events and provide insights on each ticket sold for each event.
 
-- Events can have many attendees
-  - Attributes
-    - Id (Integer)
-    - Event Name
-    - Headliner
-    - Event Venue
-    - Capacity (Integer)
-    - Event Date (DateTime)
-    - Event Updates
-  - CRUD
-    - Get event info
-    - Post updates about event
-    - Patch event details
-    - Delete event
 
-- Attendee can have many tickets
-  - Attributes
-    - Id (Integer)
-    - First Name (String)
-    - Last Name (String)
-    - Email (String)
-  - CRUD
-    - Get attendee info
-    - Post (create) a new attendee (guest list)
+## The Events Dashboard
+The Events Dashboard provides a list of your events with a snapshot of tickets sold and revenues generated. You can click 'See More' on each event to expand the event and view more details on the Event Page.
+
+
+### Event Pages
+Event Pages provide the information on each ticket sold, including capabilities to create a new ticket, delete a ticket, and update a ticket in the case of typos or missing information.
+
+
+#### 'New Event'
+You can add an unlimeted number of events to your Events Dashboard via the 'New Event' tab at the top of the app. Simply fill out the form with the information about your new event and it will compile into your Events Dashboard.
     
 
 
