@@ -55,11 +55,14 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     //// PATCH FORM ///////
     
     
-    function handleVisibleForm(event_id, ticket_id) {
+    function handleVisibleForm(ticket) {
         setIsUpdateFormVisible(!isUpdateFormVisible)
         setUpdatedTicket({
-            event_id: event_id,
-            ticket_id: ticket_id,
+            ticket_number: ticket.ticket_number,
+            ticket_holder: ticket.ticket_holder,
+            ticket_price: ticket.ticket_price,
+            event_id: ticket.event_id,
+            ticket_id: ticket.id
         })   
     }
 
@@ -191,7 +194,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
                 <div key={ticket.id}>
                     <li>{ticket.ticket_number} - {ticket.ticket_holder} - 
                     <button onClick={() => handleDelete(ticket)}>DELETE TICKET</button> - 
-                    <button onClick={() => handleVisibleForm(ticket.event_id, ticket.id)}>UPDATE TICKET</button></li>
+                    <button onClick={() => handleVisibleForm(ticket)}>UPDATE TICKET</button></li>
                 </div>
             ))
            }
