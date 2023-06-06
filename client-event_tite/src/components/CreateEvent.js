@@ -10,6 +10,9 @@ function CreateEvent({onAddEvent}) {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        const adjustedDate = adjustDateForTimezone(eventDate);
+
         fetch("http://localhost:9292/events", {
             method: 'POST',
             headers: {
@@ -21,7 +24,7 @@ function CreateEvent({onAddEvent}) {
                 event_venue: eventVenue,
                 capacity: capacity,
                 price: price,
-                event_date: eventDate,
+                event_date: adjustedDate,
             }),
         })
         .then(r => r.json())
@@ -32,6 +35,13 @@ function CreateEvent({onAddEvent}) {
         setPrice("")
         setEventDate("")
     }
+
+    function adjustDateForTimezone(dateString) {
+        const date = new Date(dateString);
+        const timezoneOffsetInMs = date.getTimezoneOffset() * 60 * 1000;
+        const adjustedTimestamp = date.getTime() + timezoneOffsetInMs;
+        return new Date(adjustedTimestamp).toISOString();
+      }
 
     return (
         <form className='new-event-form' onSubmit={handleSubmit}>

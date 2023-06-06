@@ -68,24 +68,30 @@ function App() {
   // ADD TICKET
 
   function addTicket(addedTicket) {
-    const updatedEvent = events.find((event) => 
-      event.id === addedTicket.event_id);
-
-    const updatedTickets = updatedEvent.tickets.filter((ticket) =>
-      ticket.id !== addedTicket.ticket_id
-      )
-  
-    const updatedEvents = events.map((event) => {
-      if (event.id === addedTicket.event_id) {
+    const updatedEvent = events.map((e) => {
+      if (e.id === addedTicket.event_id) {
         return {
-          ...event,
-          tickets: [...event.tickets, addedTicket]
-        }
+          ...e,
+          tickets: [...e.tickets, addedTicket]
+        };
       }
-      return event;
-    })
-    setEvents([updatedEvents]);
-    }
+      return e;
+    });
+    setEvents(updatedEvent)
+  }
+      
+  
+    // const updatedEvents = events.map((event) => {
+    //   if (event.id === addedTicket.event_id) {
+    //     return {
+    //       ...event,
+    //       tickets: [...event.tickets, addedTicket]
+    //     }
+    //   }
+    //   return event;
+    // })
+    // setEvents([updatedEvents]);
+    
   
   
   
