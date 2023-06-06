@@ -19,10 +19,11 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     const {event_name, event_venue, headliner, capacity, event_date, price} = eventPage
 
     useEffect(() => {
+        
         const idNum = parseInt(id)
         const foundEvent = events.find(e => e.id === idNum)
-        if (!eventPage.id && foundEvent) {
-            setEventPage(foundEvent);
+        if (foundEvent) {
+            setEventPage({...foundEvent});
           }
     }, [events])
     
@@ -38,8 +39,7 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
         setUpdatedTicket((prevTicket) => ({
             ...prevTicket,
             [name]: value,
-        }))
-        console.log(updatedTicket)
+        }));
     }
 
     //// DESTROY FETCH ///////
@@ -49,7 +49,8 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
             method: 'DELETE',
         })
             // .then(r => r.json())
-            .then(onDeleteTicket(ticket))
+            .then(() => onDeleteTicket(ticket))
+            console.log("DeletedTicket:", ticket) 
     }
 
     //// PATCH FORM ///////
@@ -68,30 +69,25 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
 
     function handleUpdateFormSubmit(e) {
         e.preventDefault();
-       
-        const correctedTicket = {
-            ticket_number: updatedTicket.ticket_number,
-            ticket_holder: updatedTicket.ticket_holder,
-            ticket_price: updatedTicket.ticket_price,
-        }
 
         fetch(`http://localhost:9292/events/${updatedTicket.event_id}/tickets/${updatedTicket.ticket_id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                ticket_number: updatedTicket.ticket_number,
-                ticket_holder: updatedTicket.ticket_holder,
-                ticket_price: updatedTicket.ticket_price
-            })
+            body: JSON.stringify(updatedTicket)
         })
             .then(r => r.json())
-            .then(data => onUpdateTicket(data));
-
-            setIsUpdateFormVisible(false);
-            setUpdatedTicket(correctedTicket)
+            .then(data => {
+                onUpdateTicket(data)
+                setIsUpdateFormVisible(false);      
+            });
+            setUpdatedTicket(updatedTicket)
     }
+
+        useEffect(() => {
+        console.log(updatedTicket);
+    }, [updatedTicket]);
 
     if(!eventPage.event_name) return <h2>Loading...</h2>    
 
@@ -107,7 +103,6 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
                     <tbody>
                         <tr>{event_name}</tr>
                     </tbody>
-
                 </table>
                 <table>
                     <thead>

@@ -22,50 +22,48 @@ function App() {
   function addEvent(addedEvent) {
     setEvents([...events, addedEvent])
   }
-  
-  // DELETE TICKET
 
   function deleteTicket(deletedTicket) {
-    console.log("Deleted", deletedTicket)
-
-    const updatedEvent = events.find((e) => e.id === deletedTicket.event_id)
-    const updatedTickets = updatedEvent.tickets.filter(
-      ticket => ticket.id !== deletedTicket.ticket_id);
-
-    const updatedEvents = events.map((event) => {
-      if (event.id === deletedTicket.event_id) {
+    const updatedEvents = events.map((e) => {
+      if (e.id === deletedTicket.event_id){
+        const updatedTickets = e.tickets.filter(ticket => {
+          return ticket.id !== deletedTicket.id
+        })
         return {
-             ...updatedEvent,
-             tickets: updatedTickets
-           };
+          ...e,
+          tickets: updatedTickets
         }
-        return event;
-      });
-      setEvents([...updatedEvents]);
-    };
+      }
+      return e
+      })
+      setEvents(updatedEvents)
+      }
   
   // UPDATE TICKET 
 
   function updateTicket(updatedTicket) {
-    const updatedEvent = events.find((event) => 
-      event.id === updatedTicket.event_id)
-
-    const updatedTickets = updatedEvent.tickets.filter((ticket) =>
-      ticket.id !== updatedTicket.ticket_id
-      )
-
-    const updatedEvents = events.map((event) => {
-      if (event.id === updatedTicket.event_id) {
+    const newEvents = events.map((e) => {
+      if (e.id === updatedTicket.event_id) {
+        const updatedTickets = e.tickets.map((ticket) => {
+          if (ticket.id === updatedTicket.id) {
+            return {
+              ...ticket,
+              ticket_number: updatedTicket.ticket_number,
+              ticket_holder: updatedTicket.ticket_holder,
+              ticket_price: updatedTicket.ticket_price,
+            };
+          }
+          return ticket;
+        });
         return {
-          ...updatedEvent,
-          tickets: updatedTickets
+          ...e,
+          tickets: updatedTickets,
         };
       }
-      return event
-    })
-    setEvents([...updatedEvents])
+      return e;
+    });
+    setEvents(newEvents)
   }
-
 
   // ADD TICKET
 
@@ -101,7 +99,7 @@ function App() {
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events} onDeleteTicket={deleteTicket} onUpdateTicket={updateTicket} onAddTicket={addTicket} />}></Route>
           {/* <Route exact path="/" element={<Home/>}></Route>   */}
-          <Route path="*" element={<h1>404 not found</h1>}></Route>
+          {/* <Route path="*" element={<h1>404 not found</h1>}></Route> */}
         </Routes>
 
     </div>

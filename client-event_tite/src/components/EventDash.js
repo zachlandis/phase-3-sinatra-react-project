@@ -11,7 +11,7 @@ function EventDash({events}) {
 
     const calendar = events.map((eachEvent) => (
         <div key={eachEvent.id} className="event-page">
-            <div class="event-details">
+            <div className="event-details">
                 <div>
                     <p><strong>DATE:</strong> <br/> {new Date(eachEvent.event_date).toDateString()}</p>
                 </div>

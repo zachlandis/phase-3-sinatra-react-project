@@ -22,18 +22,13 @@ You can add an unlimeted number of events to your Events Dashboard via the 'New 
 - At a minimum, set up the following API routes in Sinatra:
   <!-- - create and read actions for both models -->
   - full CRUD capability for one of the models: 
-  The update action should be implemented using a form that is 
-  pre-filled with existing values for the object. On submission of 
-  the form, the object should update. Note: Using a like button or 
-  similar will not meet the update requirement.
+  <!-- The update action should be implemented using a form that is 
+  pre-filled with existing values for the object.  -->
+  On submission of the form, the object should update. Note: Using a like button or similar will not meet the update requirement.
 
 
-- Implement proper front end state management. You should be updating state using a
-  setState function after receiving your response from a POST, PATCH, or DELETE 
-  request. You should NOT be relying on a GET request to update state. 
+- Implement proper front end state management. You should be updating state using a setState function after receiving your response from a POST, PATCH, or DELETE request. You should NOT be relying on a GET request to update state. 
 
-- Use good OO design patterns. You should have separate classes for each of your
-  models, and create instance and class methods as necessary. 
+- Use good OO design patterns. You should have separate classes for each of your models, and create instance and class methods as necessary. 
 
-- Routes in your application (both client side and back end) should follow RESTful
-  conventions.
+- Routes in your application (both client side and back end) should follow RESTful conventions.
