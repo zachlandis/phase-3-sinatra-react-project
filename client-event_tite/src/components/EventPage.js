@@ -28,12 +28,6 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     }, [events])
     
 
-    const currencyFormat = (value) =>
-    new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    }).format(value);
-
     function handleInputChange(e) {
         const { name, value } = e.target;
         setUpdatedTicket((prevTicket) => ({
@@ -42,18 +36,14 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
         }));
     }
 
-    //// DESTROY FETCH ///////
 
     function handleDelete(ticket) {
         fetch(`http://localhost:9292/events/${ticket.event_id}/tickets/${ticket.id}`, {
             method: 'DELETE',
         })
-            // .then(r => r.json())
             .then(() => onDeleteTicket(ticket))
             console.log("DeletedTicket:", ticket) 
     }
-
-    //// PATCH FORM ///////
     
     
     function handleVisibleForm(ticket) {
@@ -86,8 +76,8 @@ function EventPage({events, onDeleteTicket, onUpdateTicket, onAddTicket}) {
     }
 
         useEffect(() => {
-        console.log(updatedTicket);
-    }, [updatedTicket]);
+            console.log(updatedTicket);
+        }, [updatedTicket]);
 
     if(!eventPage.event_name) return <h2>Loading...</h2>    
 

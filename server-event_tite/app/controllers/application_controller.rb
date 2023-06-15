@@ -1,7 +1,6 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  # CRUD FOR EVENTS
   get "/events" do
     events = Event.all
     events.to_json(include: :tickets)
@@ -24,8 +23,6 @@ class ApplicationController < Sinatra::Base
     event.to_json(include: :tickets)
   end
   
-
-  # CRUD FOR TICKETS
   
   get "/tickets" do
     tickets = Ticket.all

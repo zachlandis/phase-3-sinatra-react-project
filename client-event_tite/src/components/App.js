@@ -17,8 +17,6 @@ function App() {
       .then((data) => setEvents(data))
   }, []);
 
-  // ADD EVENT
-
   function addEvent(addedEvent) {
     setEvents([...events, addedEvent])
   }
@@ -38,8 +36,7 @@ function App() {
       })
       setEvents(updatedEvents)
       }
-  
-  // UPDATE TICKET 
+
 
   function updateTicket(updatedTicket) {
     const newEvents = events.map((e) => {
@@ -65,8 +62,6 @@ function App() {
     setEvents(newEvents)
   }
 
-  // ADD TICKET
-
   function addTicket(addedTicket) {
     const updatedEvent = events.map((e) => {
       if (e.id === addedTicket.event_id) {
@@ -79,23 +74,6 @@ function App() {
     });
     setEvents(updatedEvent)
   }
-      
-  
-    // const updatedEvents = events.map((event) => {
-    //   if (event.id === addedTicket.event_id) {
-    //     return {
-    //       ...event,
-    //       tickets: [...event.tickets, addedTicket]
-    //     }
-    //   }
-    //   return event;
-    // })
-    // setEvents([updatedEvents]);
-    
-  
-  
-  
-
 
   return (
     <div className="App">
@@ -104,8 +82,6 @@ function App() {
           <Route path="/new" element={<CreateEvent onAddEvent={addEvent}/>}></Route>
           <Route exact path="/events" element={<EventDash events={events}/>}></Route>
           <Route path="/events/:id" element={<EventPage events={events} onDeleteTicket={deleteTicket} onUpdateTicket={updateTicket} onAddTicket={addTicket} />}></Route>
-          {/* <Route exact path="/" element={<Home/>}></Route>   */}
-          {/* <Route path="*" element={<h1>404 not found</h1>}></Route> */}
         </Routes>
 
     </div>
